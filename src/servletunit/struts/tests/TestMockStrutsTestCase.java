@@ -21,6 +21,9 @@ import servletunit.struts.MockStrutsTestCase;
 
 import java.io.File;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 /**
  * A Junit test of the MockStrutsTestCase
  * @author Sean Pritchard

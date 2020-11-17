@@ -16,8 +16,10 @@
 
 package servletunit.struts.tests;
 
-import junit.framework.AssertionFailedError;
+import org.opentest4j.AssertionFailedError;
 import servletunit.struts.MockStrutsTestCase;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestRedirectAction extends MockStrutsTestCase {
 

@@ -20,6 +20,9 @@ import examples.LoginForm;
 import org.apache.struts.action.ActionForm;
 import servletunit.struts.MockStrutsTestCase;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 public class TestGetActionForm extends MockStrutsTestCase {
 
     public TestGetActionForm(String testName) {
@@ -45,11 +48,6 @@ public class TestGetActionForm extends MockStrutsTestCase {
         assertNotNull(form);
         assertEquals(((LoginForm) form).getUsername(),"deryl");
     }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestGetActionForm.class);
-    }
-
 
 }
 

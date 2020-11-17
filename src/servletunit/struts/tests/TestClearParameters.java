@@ -2,6 +2,9 @@ package servletunit.struts.tests;
 
 import servletunit.struts.MockStrutsTestCase;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 /**
  * Created by IntelliJ IDEA.
  * User: deryl
@@ -21,7 +24,7 @@ public class TestClearParameters extends MockStrutsTestCase {
      * forms and turn off debugging, and creates a mock HttpServletRequest
      * and HttpServletResponse object to use in this test.
      */
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
         setServletConfigFile("/WEB-INF/web.xml");
     }

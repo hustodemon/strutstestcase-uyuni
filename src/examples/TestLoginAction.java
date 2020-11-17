@@ -18,6 +18,9 @@ package examples;
 
 import servletunit.struts.MockStrutsTestCase;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 public class TestLoginAction extends MockStrutsTestCase {
 
     public TestLoginAction(String testName) {
@@ -53,11 +56,6 @@ public class TestLoginAction extends MockStrutsTestCase {
         verifyActionErrors(new String[] {"error.password.mismatch"});
         assertNull(getSession().getAttribute("authentication"));
     }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestLoginAction.class);
-    }
-
 
 }
 

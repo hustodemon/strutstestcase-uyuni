@@ -38,7 +38,6 @@ package servletunit;
 // Sean Pritchard
 // smpritchard@yahoo.com
 //
-import junit.framework.AssertionFailedError;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
@@ -48,6 +47,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 //  StrutsTestCase - a JUnit extension for testing Struts actions
@@ -444,7 +445,7 @@ public class HttpServletResponseSimulator implements HttpServletResponse
     public void sendError(int sc) throws IOException
     {
         setStatus(sc);
-        throw new AssertionFailedError("received error: " + sc);
+        fail("received error: " + sc);
     }
 
 
@@ -460,7 +461,7 @@ public class HttpServletResponseSimulator implements HttpServletResponse
     public void sendError(int sc, String msg) throws IOException
     {
         setStatus(sc,msg);
-        throw new AssertionFailedError("received error " + sc + " : " + msg);
+        fail("received error " + sc + " : " + msg);
     }
 
     /**

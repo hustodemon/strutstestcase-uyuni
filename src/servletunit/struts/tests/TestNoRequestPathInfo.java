@@ -17,6 +17,9 @@ package servletunit.struts.tests;
 
 import servletunit.struts.MockStrutsTestCase;
 import java.io.File;
+
+import static org.junit.jupiter.api.Assertions.fail;
+
 /**
  *
  * <p>Title: TestNoRequestPathInfo</p>

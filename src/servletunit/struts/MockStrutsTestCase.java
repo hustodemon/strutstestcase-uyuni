@@ -16,14 +16,14 @@
 
 package servletunit.struts;
 
-import junit.framework.AssertionFailedError;
-import junit.framework.TestCase;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionServlet;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import servletunit.HttpServletRequestSimulator;
 import servletunit.HttpServletResponseSimulator;
 import servletunit.ServletConfigSimulator;
@@ -33,6 +33,8 @@ import javax.servlet.http.*;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * MockStrutsTestCase is an extension of the base JUnit testcase that
@@ -52,7 +54,7 @@ import java.net.URL;
  * you would like to use an alternate configuration file, please see
  * the setConfigFile() method for details on how this file is located.
  */
-public class MockStrutsTestCase extends TestCase {
+public class MockStrutsTestCase {
 
     protected ActionServlet actionServlet;
     protected HttpServletRequestSimulator request;
@@ -88,11 +90,9 @@ public class MockStrutsTestCase extends TestCase {
         super();
     }
 
-    /**
-     * Constructor that takes test name parameter, for backwards compatibility with older versions on JUnit.
-     */
-    public MockStrutsTestCase(String testName) {
-        super(testName);
+    public MockStrutsTestCase(String name) {
+        super();
+        // todo do something with name
     }
 
     /**
@@ -101,7 +101,7 @@ public class MockStrutsTestCase extends TestCase {
      */
     private void init() {
         if (!isInitialized)
-            throw new AssertionFailedError("You are overriding the setUp() method without calling super.setUp().  You must call the superclass setUp() method in your TestCase subclass to ensure proper initialization.");
+            fail("You are overriding the setUp() method without calling super.setUp().  You must call the superclass setUp() method in your TestCase subclass to ensure proper initialization.");
     }
 
     /**
@@ -110,7 +110,8 @@ public class MockStrutsTestCase extends TestCase {
      * forms and turn off debugging, and creates a mock HttpServletRequest
      * and HttpServletResponse object to use in this test.
      */
-    protected void setUp() throws Exception {
+    @BeforeAll
+    public void setUp() throws Exception {
         if (logger.isDebugEnabled())
             logger.debug("Entering");
         if (actionServlet == null)
@@ -126,7 +127,8 @@ public class MockStrutsTestCase extends TestCase {
             logger.debug("Exiting");
     }
 
-    protected void tearDown() throws Exception {
+    @AfterAll
+    public void tearDown() throws Exception {
         ActionServlet servlet = getActionServlet();
         servlet.destroy();
         setActionServlet(servlet);
@@ -341,7 +343,7 @@ public class MockStrutsTestCase extends TestCase {
                         + "the directory the test case is running from, or in the classpath.";
                 fail(message);
             }else{
-                throw new AssertionFailedError(e.getMessage());
+                fail(e.getMessage());
             }
         }
         if (logger.isDebugEnabled())
@@ -359,7 +361,7 @@ public class MockStrutsTestCase extends TestCase {
             logger.debug("Entering - servlet = " + servlet);
         init();
         if (servlet == null)
-            throw new AssertionFailedError("Cannot set ActionServlet to null");
+            fail("Cannot set ActionServlet to null");
         this.actionServlet = servlet;
         if (logger.isDebugEnabled())
             logger.debug("Exiting");
@@ -373,7 +375,7 @@ public class MockStrutsTestCase extends TestCase {
      * set in the HttpServletRequest object.  It stores any results
      * for further validation.
      *
-     * @exception AssertionFailedError if there are any execution
+     * @exception org.opentest4j.AssertionFailedError if there are any execution
      * errors while calling Action.execute()
      *
      */
@@ -599,11 +601,11 @@ public class MockStrutsTestCase extends TestCase {
             }
             InputStream input = context.getResourceAsStream(pathname);
             if(input==null)
-                throw new AssertionFailedError("Invalid pathname: " + pathname);
+                fail("Invalid pathname: " + pathname);
             digester.parse(input);
             input.close();
         } catch (Exception e) {
-            throw new AssertionFailedError("Received an exception while loading web.xml - " + e.getClass() + " : " + e.getMessage());
+            fail("Received an exception while loading web.xml - " + e.getClass() + " : " + e.getMessage());
         }
 
         // now the context parameters..
@@ -621,11 +623,11 @@ public class MockStrutsTestCase extends TestCase {
             }
             InputStream input = context.getResourceAsStream(pathname);
             if(input==null)
-                throw new AssertionFailedError("Invalid pathname: " + pathname);
+                fail("Invalid pathname: " + pathname);
             digester.parse(input);
             input.close();
         } catch (Exception e) {
-            throw new AssertionFailedError("Received an exception while loading web.xml - " + e.getClass() + " : " + e.getMessage());
+            fail("Received an exception while loading web.xml - " + e.getClass() + " : " + e.getMessage());
         }
         actionServletIsInitialized = false;
         if (logger.isDebugEnabled())
@@ -668,7 +670,7 @@ public class MockStrutsTestCase extends TestCase {
      * used a different forward than <code>forwardName</code> after
      * executing an Action object.
      */
-    public void verifyForward(String forwardName) throws AssertionFailedError {
+    public void verifyForward(String forwardName) {
         if (logger.isDebugEnabled())
             logger.debug("Entering - forwardName = " + forwardName);
         init();
@@ -688,7 +690,7 @@ public class MockStrutsTestCase extends TestCase {
      * used a different forward path than <code>forwardPath</code> after
      * executing an Action object.
      */
-    public void verifyForwardPath(String forwardPath) throws AssertionFailedError {
+    public void verifyForwardPath(String forwardPath)  {
         if (logger.isDebugEnabled())
             logger.debug("Entering - forwardPath = " + forwardPath);
         init();
@@ -704,13 +706,13 @@ public class MockStrutsTestCase extends TestCase {
             if (logger.isDebugEnabled()) {
                 logger.debug("actualForward is null - this usually means it is not mapped properly.");
             }
-            throw new AssertionFailedError("Was expecting '" + forwardPath + "' but it appears the Action has tried to return an ActionForward that is not mapped correctly.");
+            fail("Was expecting '" + forwardPath + "' but it appears the Action has tried to return an ActionForward that is not mapped correctly.");
         }
         if (logger.isDebugEnabled()) {
             logger.debug("expected forward = '" + forwardPath + "' - actual forward = '" + actualForward + "'");
         }
         if (!(actualForward.equals(forwardPath)))
-            throw new AssertionFailedError("was expecting '" + forwardPath + "' but received '" + actualForward + "'");
+            fail("was expecting '" + forwardPath + "' but received '" + actualForward + "'");
         if (logger.isDebugEnabled())
             logger.debug("Exiting");
     }

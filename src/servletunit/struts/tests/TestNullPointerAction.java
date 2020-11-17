@@ -18,6 +18,8 @@ package servletunit.struts.tests;
 import servletunit.struts.*;
 import java.io.File;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 /**
  * <p>Title: NullPointerActionTest</p>
  * <p>Description: Tests to confirm a NullPointerException
@@ -60,10 +62,4 @@ public class TestNullPointerAction extends MockStrutsTestCase {
 //            throw e;
         }
     }
-
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestNullPointerAction.class);
-    }
-
 }

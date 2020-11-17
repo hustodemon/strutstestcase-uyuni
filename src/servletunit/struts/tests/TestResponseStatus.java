@@ -2,7 +2,10 @@ package servletunit.struts.tests;
 
 import servletunit.struts.MockStrutsTestCase;
 import servletunit.HttpServletResponseSimulator;
-import junit.framework.AssertionFailedError;
+import org.opentest4j.AssertionFailedError;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,7 +32,7 @@ public class TestResponseStatus extends MockStrutsTestCase {
         } catch (AssertionFailedError afe) {
             int statusCode = ((HttpServletResponseSimulator) getResponse()).getStatusCode();
             // todo: backwards compatible with struts 1.1
-            assertTrue("unexpected response code",statusCode == 404 || statusCode == 400);
+            assertTrue(statusCode == 404 || statusCode == 400, "unexpected response code");
             return;
         }
         fail("expected some error code!");

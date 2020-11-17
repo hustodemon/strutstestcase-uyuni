@@ -18,6 +18,8 @@ package servletunit.struts.tests;
 
 import servletunit.struts.MockStrutsTestCase;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class TestMultipleActions extends MockStrutsTestCase {
 
     public TestMultipleActions(String testName) {
@@ -46,11 +48,5 @@ public class TestMultipleActions extends MockStrutsTestCase {
         verifyForward("login");
         verifyForwardPath("/login/login.jsp");
     }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestMultipleActions.class);
-    }
-
-
 }
 

@@ -32,7 +32,7 @@ public class TestUserAction extends MockStrutsTestCase {
      * forms and turn off debugging, and creates a mock HttpServletRequest
      * and HttpServletResponse object to use in this test.
      */
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
         setServletConfigFile("/WEB-INF/web.xml");
     }

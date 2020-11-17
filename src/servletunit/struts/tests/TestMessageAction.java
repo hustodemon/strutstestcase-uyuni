@@ -15,11 +15,14 @@
 
 package servletunit.struts.tests;
 
+import org.opentest4j.AssertionFailedError;
 import servletunit.struts.MockStrutsTestCase;
-import junit.framework.AssertionFailedError;
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestMessageAction extends MockStrutsTestCase {
 
@@ -103,10 +106,5 @@ public class TestMessageAction extends MockStrutsTestCase {
         }
         fail("should not have passed!");
     }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestMessageAction.class);
-    }
-
 
 }

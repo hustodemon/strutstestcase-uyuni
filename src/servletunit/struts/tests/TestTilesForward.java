@@ -17,7 +17,9 @@
 package servletunit.struts.tests;
 
 import servletunit.struts.MockStrutsTestCase;
-import junit.framework.AssertionFailedError;
+import org.opentest4j.AssertionFailedError;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestTilesForward extends MockStrutsTestCase {
 

@@ -16,7 +16,6 @@
 
 package servletunit.struts;
 
-import junit.framework.AssertionFailedError;
 import org.apache.struts.action.*;
 import org.apache.struts.tiles.*;
 import org.apache.struts.config.ModuleConfig;
@@ -36,6 +35,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Iterator;
 import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 /**
@@ -66,7 +67,7 @@ public class Common {
                     messageText.append(((ActionMessage) iterator.next()).getKey());
                     messageText.append("\"");
                 }
-                throw new AssertionFailedError("was expecting no " + messageLabel + " messages, but received: " + messageText.toString());
+                fail("was expecting no " + messageLabel + " messages, but received: " + messageText.toString());
             }
         }
         if (logger.isTraceEnabled())
@@ -86,11 +87,11 @@ public class Common {
         }
 
         if (messages == null) {
-            throw new AssertionFailedError("was expecting some " + messageLabel + " messages, but received none.");
+            fail("was expecting some " + messageLabel + " messages, but received none.");
         }
         /* check length of messages as optimization */
         else if (messages.size() != messageNames.length) {
-            throw new AssertionFailedError("was expecting " + messageNames.length + " " + messageLabel + " message(s), but received " + messages.size() + " " + messageLabel + " message(s)");
+            fail("was expecting " + messageNames.length + " " + messageLabel + " message(s), but received " + messages.size() + " " + messageLabel + " message(s)");
         }
         else  {
             /* alphabetize the two lists of message keys and compare them */
@@ -116,7 +117,7 @@ public class Common {
                     for ( int j = 0; j < messageKeys.length; j++) mks.append( messageKeys[j] + " " );
                     for ( int k = 0; k < messageNames.length; k++) mns.append( messageNames[k] + " " );
 
-                    throw new AssertionFailedError("received " + messageLabel + " messages: (" + mks + ") but expected (" + mns + ")");
+                    fail("received " + messageLabel + " messages: (" + mks + ") but expected (" + mns + ")");
                 }
             }
         }
@@ -184,7 +185,7 @@ public class Common {
     /**
      * Verifies that ActionServlet used this logical forward or input mapping with this tile definition.
      *
-     * @throws AssertionFailedError if the expected and actual tiles definitions do not match.
+     * @throws org.opentest4j.AssertionFailedError if the expected and actual tiles definitions do not match.
      */
     protected static void verifyTilesForward(String actionPath, String forwardName, String expectedDefinition, boolean isInputPath, HttpServletRequest request, ServletContext context, ServletConfig config) {
         if (logger.isTraceEnabled())
@@ -201,7 +202,7 @@ public class Common {
                 logger.debug("retrieved input forward name = " + forwardName);
             }
             if (forwardName == null)
-                throw new AssertionFailedError("Trying to validate against an input mapping, but none is defined for this Action.");
+                fail("Trying to validate against an input mapping, but none is defined for this Action.");
             ComponentDefinition definition = getTilesForward(forwardName, request, context, config);
             if (definition != null)
                 definitionName = definition.getName();
@@ -213,7 +214,7 @@ public class Common {
             }
             ForwardConfig expectedForward = findForward(actionPath, forwardName, request, context);
             if (expectedForward == null)
-                throw new AssertionFailedError("Cannot find forward '" + forwardName + "'  - it is possible that it is not mapped correctly.");
+                fail("Cannot find forward '" + forwardName + "'  - it is possible that it is not mapped correctly.");
             forwardName = expectedForward.getPath();
             if (logger.isDebugEnabled()) {
                 logger.debug("retrieved forward name = " + forwardName);
@@ -224,9 +225,9 @@ public class Common {
                 definitionName = definition.getName();
         }
         if (definitionName == null)
-            throw new AssertionFailedError("Could not find tiles definition mapped to forward '" + forwardName + "'");
+            fail("Could not find tiles definition mapped to forward '" + forwardName + "'");
         if (!definitionName.equals(expectedDefinition))
-            throw new AssertionFailedError("Was expecting tiles definition '" + expectedDefinition + "' but received '" + definitionName + "'");
+            fail("Was expecting tiles definition '" + expectedDefinition + "' but received '" + definitionName + "'");
         if (logger.isTraceEnabled())
             logger.trace("Exiting");
     }
@@ -234,7 +235,7 @@ public class Common {
     /**
      * Verifies that ActionServlet used this logical forward or input mapping.
      *
-     * @throws AssertionFailedError if expected and actual paths do not match.
+     * @throws org.opentest4j.AssertionFailedError if expected and actual paths do not match.
      */
     protected static void verifyForwardPath(String actionPath, String forwardName, String actualForwardPath, boolean isInputPath, HttpServletRequest request, ServletContext context, ServletConfig config) {
 
@@ -253,7 +254,7 @@ public class Common {
                 logger.debug("retrieved input forward name = " + forwardName);
             }
             if (forwardName == null)
-                throw new AssertionFailedError("Trying to validate against an input mapping, but none is defined for this Action.");
+                fail("Trying to validate against an input mapping, but none is defined for this Action.");
             String tilesForward = null;
             ComponentDefinition definition = getTilesForward(forwardName, request, context, config);
             if (definition != null)
@@ -276,12 +277,12 @@ public class Common {
                 if (actualForwardPath == null)
                     return;
                 else
-                    throw new AssertionFailedError("Expected a null forward from action, but received '" + actualForwardPath + "'");
+                    fail("Expected a null forward from action, but received '" + actualForwardPath + "'");
             }
 
             ForwardConfig expectedForward = findForward(actionPath, forwardName, request, context);
             if (expectedForward == null)
-                throw new AssertionFailedError("Cannot find forward '" + forwardName + "'  - it is possible that it is not mapped correctly.");
+                fail("Cannot find forward '" + forwardName + "'  - it is possible that it is not mapped correctly.");
             forwardName = expectedForward.getPath();
             if (logger.isDebugEnabled()) {
                 logger.debug("retrieved forward name = " + forwardName);
@@ -330,13 +331,13 @@ public class Common {
             if (logger.isDebugEnabled()) {
                 logger.debug("actualForwardPath is null - this usually means it is not mapped properly.");
             }
-            throw new AssertionFailedError("Was expecting '" + forwardName + "' but it appears the Action has tried to return an ActionForward that is not mapped correctly.");
+            fail("Was expecting '" + forwardName + "' but it appears the Action has tried to return an ActionForward that is not mapped correctly.");
         }
         if (logger.isDebugEnabled()) {
             logger.debug("expected forward = '" + forwardName + "' - actual forward = '" + actualForwardPath + "'");
         }
         if (!forwardName.equals(stripJSessionID(actualForwardPath)))
-            throw new AssertionFailedError("was expecting '" + forwardName + "' but received '" + actualForwardPath + "'");
+            fail("was expecting '" + forwardName + "' but received '" + actualForwardPath + "'");
         if (logger.isTraceEnabled())
             logger.trace("Exiting");
     }

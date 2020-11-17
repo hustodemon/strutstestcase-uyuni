@@ -17,9 +17,10 @@
 package servletunit.struts.tests;
 
 import servletunit.struts.MockStrutsTestCase;
-import servletunit.ServletContextSimulator;
 
-import java.io.File;
+import java.io.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestAbsolutePath extends MockStrutsTestCase {
 
@@ -59,11 +60,6 @@ public class TestAbsolutePath extends MockStrutsTestCase {
         assertEquals("deryl",getSession().getAttribute("authentication"));
         verifyNoActionErrors();
     }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestAbsolutePath.class);
-    }
-
 
 }
 

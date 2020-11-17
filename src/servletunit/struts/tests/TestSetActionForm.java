@@ -19,6 +19,8 @@ package servletunit.struts.tests;
 import servletunit.struts.MockStrutsTestCase;
 import examples.LoginForm;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 public class TestSetActionForm extends MockStrutsTestCase {
 
     public TestSetActionForm(String testName) {
@@ -81,11 +83,5 @@ public class TestSetActionForm extends MockStrutsTestCase {
         }
         fail("should have thrown IllegalStateException");
     }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestSetActionForm.class);
-    }
-
-
 }
 

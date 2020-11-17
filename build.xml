@@ -75,9 +75,6 @@
             <exclude name="servletapi-2.4.jar" if="build_2.3"/>
             <exclude name="servletapi-2.2.jar" if="build_2.4"/>
             <exclude name="servletapi-2.3.jar" if="build_2.4"/>
-
-            <exclude name="cactus-13-1.7.jar" if="build_2.2"/>
-            <exclude name="cactus-12-1.7.jar" unless="build_2.2"/>
         </fileset>
         <pathelement location="${build.dir}"/>
     </path>
@@ -113,12 +110,7 @@
             <webinf dir="${src.dir}/examples/WEB-INF">
                 <exclude name="web.xml"/>
             </webinf>
-            <webinf dir="${src.dir}/examples/cactus">
-                <include name="cactus.properties"/>
-            </webinf>
             <lib dir="${lib.dir}">
-                <exclude name="cactus-13-1.7.jar" if="build_2.2"/>
-                <exclude name="cactus-12-1.7.jar" unless="build_2.2"/>
                 <exclude name="servletapi*.jar" />
                 <exclude name="ant*.jar"/>
             </lib>
@@ -127,9 +119,6 @@
             <classes dir="${src.dir}">
                 <include name="examples/ApplicationResources.properties"/>
                 <include name="log4j.properties"/>
-            </classes>
-            <classes dir="${src.dir}/examples/cactus">
-                <include name="cactus.properties"/>
             </classes>
             <fileset dir="${src.dir}/examples">
                 <include name="login/**"/>
@@ -214,7 +203,6 @@
                     <include name="**/examples/**/Test*.class"/>
                     <include name="**/servletunit/struts/Test*.class"/>
                     <include name="**/tests/**/Test*.class"/>
-                    <exclude name="**/cactus/**"/>
                 </fileset>
             </batchtest>
         </junit>
@@ -226,31 +214,6 @@
             <report format="frames" todir="${test.dir}"/>
         </junitreport>
 
-    </target>
-
-    <target name="test.cactus" description="run all cactus tests">
-        <mkdir dir="${test.dir}"/>
-        <junit printsummary="yes" haltonfailure="no">
-            <sysproperty key="test.dir" value="${test.dir}"/>
-            <sysproperty key="basedir" value="${basedir}"/>
-            <classpath refid="class.path"/>
-            <classpath>
-                <pathelement location="${src.dir}/"/>
-                <pathelement location="${src.dir}/examples/cactus"/>
-            </classpath>
-            <formatter type="xml"/>
-            <batchtest fork="yes" todir="${test.dir}">
-                <fileset dir="${build.dir}">
-                    <include name="**/cactus/**/Test*.class"/>
-                </fileset>
-            </batchtest>
-        </junit>
-        <junitreport todir="${test.dir}">
-            <fileset dir="${test.dir}">
-                <include name="TEST-*.xml"/>
-            </fileset>
-            <report format="frames" todir="${test.dir}"/>
-        </junitreport>
     </target>
 
     <target name="deploy" depends="package">
@@ -272,7 +235,7 @@
     <!-- Run all the build targets -->
     <target name="all" description="build the StrutsTestCase library" depends="clean,build,package,deploy"/>
 
-    <target name="auto.build" depends="clean,update.struts,build,test,package,deploy,test.cactus"/>
+    <target name="auto.build" depends="clean,update.struts,build,test,package,deploy"/>
 
 </project>
 
