@@ -1,0 +1,14 @@
+build
+dist
+test-results
+test.war
+strutstest-src.zip
+strutstest-1.0_2.2.zip
+strutstest-1.0_2.2.tar.gz
+strutstest-1.0_2.3.zip
+strutstest-1.0_2.3.tar.gz
+strutstest-1.1_2.2.zip
+strutstest-1.1_2.2.tar.gz
+strutstest-1.1_2.3.zip
+strutstest-1.1_2.3.tar.gz
+strutstest.iml
