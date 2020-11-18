@@ -22,17 +22,20 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionServlet;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import servletunit.HttpServletRequestSimulator;
 import servletunit.HttpServletResponseSimulator;
 import servletunit.ServletConfigSimulator;
 import servletunit.ServletContextSimulator;
 
-import javax.servlet.http.*;
-import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+import javax.servlet.http.HttpSession;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -110,7 +113,7 @@ public class MockStrutsTestCase {
      * forms and turn off debugging, and creates a mock HttpServletRequest
      * and HttpServletResponse object to use in this test.
      */
-    @BeforeAll
+    @BeforeEach
     public void setUp() throws Exception {
         if (logger.isDebugEnabled())
             logger.debug("Entering");
@@ -127,7 +130,7 @@ public class MockStrutsTestCase {
             logger.debug("Exiting");
     }
 
-    @AfterAll
+    @AfterEach
     public void tearDown() throws Exception {
         ActionServlet servlet = getActionServlet();
         servlet.destroy();
