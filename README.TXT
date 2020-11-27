@@ -1,3 +1,11 @@
+Work-in-progress
+
+This fork aims for jUnit 5 support.
+- removed dependency on legacy `TestCase` class
+
+
+Original README:
+
 StrutsTestCase for JUnit - release 2.1.4
 ----------------------------------------
 
