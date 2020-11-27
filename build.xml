@@ -105,26 +105,6 @@
         <jar jarfile="${distribute.dir}/${jar.name}">
             <fileset dir="${build.dir}" includes="**/*.class" excludes="**/examples/**,**/tests/**"/>
         </jar>
-
-        <war warfile="test.war" webxml="${src.dir}/examples/WEB-INF/web.xml">
-            <webinf dir="${src.dir}/examples/WEB-INF">
-                <exclude name="web.xml"/>
-            </webinf>
-            <lib dir="${lib.dir}">
-                <exclude name="servletapi*.jar" />
-                <exclude name="ant*.jar"/>
-            </lib>
-            <lib dir="${distribute.dir}" includes="${jar.name}"/>
-            <classes dir="${build.dir}" includes="**/tests/**,**/examples/**"/>
-            <classes dir="${src.dir}">
-                <include name="examples/ApplicationResources.properties"/>
-                <include name="log4j.properties"/>
-            </classes>
-            <fileset dir="${src.dir}/examples">
-                <include name="login/**"/>
-                <include name="main/**"/>
-            </fileset>
-        </war>
     </target>
 
     <!-- prepare code for public release -->
