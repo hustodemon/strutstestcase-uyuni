@@ -6,11 +6,11 @@
     <property name="build.compiler" value="modern"/>
 
     <!-- set the release version -->
-    <property name="major.version" value="2"/>
-    <property name="minor.version" value="1"/>
-    <property name="point.version" value="4"/>
+    <property name="major.version" value="0"/>
+    <property name="minor.version" value="0"/>
+    <property name="point.version" value="1"/>
     <property name="release.version" value="${major.version}${minor.version}${point.version}"/>
-    <property name="jar.name" value="strutstest-${major.version}.${minor.version}.${point.version}.jar"/>
+    <property name="jar.name" value="strutstest-uyuni-${major.version}.${minor.version}.${point.version}.jar"/>
 
     <!-- targets this build for different Servlet specs -->
     <!-- uncomment or set on the ant command line       -->
@@ -110,11 +110,11 @@
     <!-- prepare code for public release -->
     <target name="release" depends="init,package,docs">
         <echo message="creating release for servlet v${servlet.version} and struts v${struts.version}.."/>
-        <zip zipFile="${basedir}/strutstest${release.version}-${struts.version}_${servlet.version}.zip" basedir="${basedir}/dist"/>
+        <zip zipFile="${basedir}/strutstest-uyuni${release.version}-${struts.version}_${servlet.version}.zip" basedir="${basedir}/dist"/>
     </target>
 
     <target name="release.src" depends="clean">
-        <zip zipFile="${basedir}/strutstest-${release.version}-src.zip" basedir="${basedir}">
+        <zip zipFile="${basedir}/strutstest-uyuni-${release.version}-src.zip" basedir="${basedir}">
             <exclude name="*.zip"/>
             <exclude name="lib/*.jar"/>
         </zip>
